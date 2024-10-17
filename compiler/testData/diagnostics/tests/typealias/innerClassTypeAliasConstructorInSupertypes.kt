@@ -1,3 +1,5 @@
+// LATEST_LV_DIFFERENCE
+
 package test
 
 typealias OI = Outer.Inner

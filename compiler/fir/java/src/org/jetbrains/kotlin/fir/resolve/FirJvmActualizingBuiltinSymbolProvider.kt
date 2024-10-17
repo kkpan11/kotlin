@@ -6,10 +6,10 @@
 package org.jetbrains.kotlin.fir.resolve
 
 import org.jetbrains.kotlin.fir.analysis.checkers.hasAnnotationOrInsideAnnotatedClass
+import org.jetbrains.kotlin.fir.java.deserialization.FirJvmBuiltinsSymbolProvider
 import org.jetbrains.kotlin.fir.resolve.providers.FirSymbolNamesProvider
 import org.jetbrains.kotlin.fir.resolve.providers.FirSymbolProvider
 import org.jetbrains.kotlin.fir.resolve.providers.FirSymbolProviderInternals
-import org.jetbrains.kotlin.fir.resolve.providers.impl.FirBuiltinsSymbolProvider
 import org.jetbrains.kotlin.fir.symbols.impl.FirCallableSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirNamedFunctionSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
@@ -34,7 +34,7 @@ import org.jetbrains.kotlin.name.StandardClassIds
  * Those actuals can be treated as declarations in a virtual file
  */
 class FirJvmActualizingBuiltinSymbolProvider(
-    val builtinsSymbolProvider: FirBuiltinsSymbolProvider,
+    val builtinsSymbolProvider: FirJvmBuiltinsSymbolProvider,
     private val refinedSourceSymbolProviders: List<FirSymbolProvider>,
 ) : FirSymbolProvider(builtinsSymbolProvider.session) {
     override fun getClassLikeSymbolByClassId(classId: ClassId): FirRegularClassSymbol? {

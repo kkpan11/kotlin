@@ -48,42 +48,21 @@ internal class NativeInlineFunctionResolver(
     override fun getFunctionDeclaration(symbol: IrFunctionSymbol): IrFunction? {
         val function = super.getFunctionDeclaration(symbol) ?: return null
 
-        generationState.inlineFunctionOrigins[function]?.let { return it.irFunction }
+        function.loweredInlineFunction?.let { return it }
 
-        val packageFragment = function.getPackageFragment()
-        val moduleDeserializer = context.irLinker.getCachedDeclarationModuleDeserializer(function)
-        val irFile: IrFile
-        val functionIsCached = moduleDeserializer != null && function.body == null
-        val (possiblyLoweredFunction, shouldLower) = if (functionIsCached) {
+        val moduleDeserializer = if (function.body == null) context.irLinker.getCachedDeclarationModuleDeserializer(function) else null
+        val functionIsCached = moduleDeserializer != null
+        if (functionIsCached) {
             // The function is cached, get its body from the IR linker.
-            val (firstAccess, deserializedInlineFunction) = moduleDeserializer.deserializeInlineFunction(function)
-            generationState.inlineFunctionOrigins[function] = deserializedInlineFunction
-            irFile = deserializedInlineFunction.irFile
-            function to firstAccess
-        } else {
-            irFile = packageFragment as IrFile
-            val partiallyLoweredFunction = function.loweredInlineFunction
-            if (partiallyLoweredFunction == null)
-                function to true
-            else {
-                generationState.inlineFunctionOrigins[function] =
-                        InlineFunctionOriginInfo(partiallyLoweredFunction, irFile, function.startOffset, function.endOffset)
-                partiallyLoweredFunction to false
-            }
+            moduleDeserializer.deserializeInlineFunction(function)
         }
 
-        if (shouldLower) {
-            lower(possiblyLoweredFunction, irFile, functionIsCached)
-            if (!functionIsCached) {
-                generationState.inlineFunctionOrigins[function] =
-                        InlineFunctionOriginInfo(possiblyLoweredFunction.getOrSaveLoweredInlineFunction(),
-                                irFile, function.startOffset, function.endOffset)
-            }
-        }
-        return possiblyLoweredFunction
+        lower(function, functionIsCached)
+
+        return function.getOrSaveLoweredInlineFunction()
     }
 
-    private fun lower(function: IrFunction, irFile: IrFile, functionIsCached: Boolean) {
+    private fun lower(function: IrFunction, functionIsCached: Boolean) {
         val body = function.body ?: return
 
         val doubleInliningEnabled = !context.config.configuration.getBoolean(KlibConfigurationKeys.NO_DOUBLE_INLINING)

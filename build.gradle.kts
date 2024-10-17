@@ -101,7 +101,7 @@ if (!project.hasProperty("versions.kotlin-native")) {
     extra["versions.kotlin-native"] = if (kotlinBuildProperties.isKotlinNativeEnabled) {
         kotlinBuildProperties.defaultSnapshotVersion
     } else {
-        "2.1.20-dev-106"
+        "2.1.20-dev-1625"
     }
 }
 
@@ -828,6 +828,7 @@ tasks {
         dependsOn(":tools:binary-compatibility-validator:check")
         dependsOn(":native:objcexport-header-generator:check")
         dependsOn(":native:swift:swift-export-standalone:test")
+        dependsOn(":native:swift:swift-export-ide:test")
     }
 
     // These are unit tests of Native compiler
@@ -1148,6 +1149,7 @@ if (disableVerificationTasks) {
 
 gradle.taskGraph.whenReady(checkYarnAndNPMSuppressed)
 
+@Suppress("DEPRECATION")
 plugins.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin::class) {
     extensions.configure(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension::class.java) {
         if (kotlinBuildProperties.isCacheRedirectorEnabled) {
@@ -1168,6 +1170,7 @@ plugins.withType(com.github.gradle.node.NodePlugin::class) {
     }
 }
 
+@Suppress("DEPRECATION")
 afterEvaluate {
     if (kotlinBuildProperties.isCacheRedirectorEnabled) {
         rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin::class.java) {

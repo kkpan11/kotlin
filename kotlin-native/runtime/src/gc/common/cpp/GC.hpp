@@ -94,6 +94,7 @@ private:
 };
 
 void beforeHeapRefUpdate(mm::DirectRefAccessor ref, ObjHeader* value, bool loadAtomic) noexcept;
+void afterSpecialRefReleaseToZero(mm::DirectRefAccessor ref) noexcept;
 OBJ_GETTER(weakRefReadBarrier, std_support::atomic_ref<ObjHeader*> weakReferee) noexcept;
 
 bool isMarked(ObjHeader* object) noexcept;
@@ -101,6 +102,8 @@ bool isMarked(ObjHeader* object) noexcept;
 // This will drop the mark bit if it was set and return `true`.
 // If the mark bit was unset, this will return `false`.
 bool tryResetMark(GC::ObjectData& objectData) noexcept;
+
+extern const bool kRequiresThreadDataDuringThreadDestruction;
 
 } // namespace gc
 

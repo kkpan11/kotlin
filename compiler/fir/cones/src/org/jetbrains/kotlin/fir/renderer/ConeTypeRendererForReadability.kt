@@ -53,12 +53,11 @@ open class ConeTypeRendererForReadability(
     }
 
     private fun renderFlexibleTypeCompact(lowerRendered: String, upperRendered: String): String? {
-        if (typeStringsDifferOnlyInNullability(lowerRendered, upperRendered)) {
-            if (upperRendered.startsWith("(")) {
-                // the case of complex type, e.g. (() -> Unit)?
-                return "($lowerRendered)!"
-            }
-            return "$lowerRendered!"
+        // More precise handling of different cases inside typeStringsDifferOnlyInNullability
+        when {
+            lowerRendered == upperRendered.replace("?", "") -> return upperRendered.replace("?", "!")
+            upperRendered.endsWith("?") && ("$lowerRendered?") == upperRendered -> return "$lowerRendered!"
+            "($lowerRendered)?" == upperRendered -> return "($lowerRendered)!"
         }
 
         val kotlinCollectionsPrefix = (StandardNames.COLLECTIONS_PACKAGE_FQ_NAME.asString() + ".").takeIf { lowerRendered.startsWith(it) } ?: ""
@@ -103,11 +102,11 @@ open class ConeTypeRendererForReadability(
         renderNonCompilerAttributes()
     }
 
-    override fun renderConstructor(constructor: TypeConstructorMarker) {
+    override fun renderConstructor(constructor: TypeConstructorMarker, nullabilityMarker: String) {
         preRenderedConstructors?.get(constructor)?.let {
-            builder.append(it)
+            builder.append(it.replace("^", nullabilityMarker))
             return
         }
-        super.renderConstructor(constructor)
+        super.renderConstructor(constructor, nullabilityMarker)
     }
 }

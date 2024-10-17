@@ -11353,6 +11353,24 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
       }
 
       @Test
+      @TestMetadata("Delegation_DifferentGenerics.kt")
+      public void testDelegation_DifferentGenerics() {
+        runTest("compiler/testData/diagnostics/tests/delegation/Delegation_DifferentGenerics.kt");
+      }
+
+      @Test
+      @TestMetadata("Delegation_DifferentGenerics_After.kt")
+      public void testDelegation_DifferentGenerics_After() {
+        runTest("compiler/testData/diagnostics/tests/delegation/Delegation_DifferentGenerics_After.kt");
+      }
+
+      @Test
+      @TestMetadata("Delegation_DifferentGenerics_Substitution.kt")
+      public void testDelegation_DifferentGenerics_Substitution() {
+        runTest("compiler/testData/diagnostics/tests/delegation/Delegation_DifferentGenerics_Substitution.kt");
+      }
+
+      @Test
       @TestMetadata("Delegation_Hierarchy.kt")
       public void testDelegation_Hierarchy() {
         runTest("compiler/testData/diagnostics/tests/delegation/Delegation_Hierarchy.kt");
@@ -14875,6 +14893,18 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
       }
 
       @Test
+      @TestMetadata("unclearTypeMismatch.kt")
+      public void testUnclearTypeMismatch() {
+        runTest("compiler/testData/diagnostics/tests/generics/unclearTypeMismatch.kt");
+      }
+
+      @Test
+      @TestMetadata("unclearTypeMismatchWithCapturedTypes.kt")
+      public void testUnclearTypeMismatchWithCapturedTypes() {
+        runTest("compiler/testData/diagnostics/tests/generics/unclearTypeMismatchWithCapturedTypes.kt");
+      }
+
+      @Test
       @TestMetadata("unresolvedClassifierInWhere.kt")
       public void testUnresolvedClassifierInWhere() {
         runTest("compiler/testData/diagnostics/tests/generics/unresolvedClassifierInWhere.kt");
@@ -17367,6 +17397,12 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
       }
 
       @Test
+      @TestMetadata("underscoredInEnumMap.kt")
+      public void testUnderscoredInEnumMap() {
+        runTest("compiler/testData/diagnostics/tests/inference/underscoredInEnumMap.kt");
+      }
+
+      @Test
       @TestMetadata("underscoredTypeArgument.kt")
       public void testUnderscoredTypeArgument() {
         runTest("compiler/testData/diagnostics/tests/inference/underscoredTypeArgument.kt");
@@ -19654,6 +19690,536 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
           @TestMetadata("simpleGreen.kt")
           public void testSimpleGreen() {
             runTest("compiler/testData/diagnostics/tests/inference/pcla/csForks/simpleGreen.kt");
+          }
+        }
+
+        @Nested
+        @TestMetadata("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand")
+        @TestDataPath("$PROJECT_ROOT")
+        public class FixationOnDemand {
+          @Test
+          public void testAllFilesPresentInFixationOnDemand() {
+            KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+          }
+
+          @Nested
+          @TestMetadata("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables")
+          @TestDataPath("$PROJECT_ROOT")
+          public class DerivativeTypeVariables {
+            @Test
+            public void testAllFilesPresentInDerivativeTypeVariables() {
+              KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+            }
+
+            @Test
+            @TestMetadata("ArgumentForSubtypeOfPCLALambdaTV.kt")
+            public void testArgumentForSubtypeOfPCLALambdaTV() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/ArgumentForSubtypeOfPCLALambdaTV.kt");
+            }
+
+            @Test
+            @TestMetadata("ArgumentForSupertypeOfPCLALambdaTV.kt")
+            public void testArgumentForSupertypeOfPCLALambdaTV() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/ArgumentForSupertypeOfPCLALambdaTV.kt");
+            }
+
+            @Test
+            @TestMetadata("DeepEquivalent.kt")
+            public void testDeepEquivalent() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/DeepEquivalent.kt");
+            }
+
+            @Test
+            @TestMetadata("DeepSubtypeOfPCLALambdaTV.kt")
+            public void testDeepSubtypeOfPCLALambdaTV() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/DeepSubtypeOfPCLALambdaTV.kt");
+            }
+
+            @Test
+            @TestMetadata("DeepSupertypeOfPCLALambdaTV.kt")
+            public void testDeepSupertypeOfPCLALambdaTV() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/DeepSupertypeOfPCLALambdaTV.kt");
+            }
+
+            @Test
+            @TestMetadata("PCLALambdaTVAsArgumentForSubtype.kt")
+            public void testPCLALambdaTVAsArgumentForSubtype() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/PCLALambdaTVAsArgumentForSubtype.kt");
+            }
+
+            @Test
+            @TestMetadata("PCLALambdaTVAsArgumentForSupertype.kt")
+            public void testPCLALambdaTVAsArgumentForSupertype() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/PCLALambdaTVAsArgumentForSupertype.kt");
+            }
+
+            @Test
+            @TestMetadata("ShallowEquivalent.kt")
+            public void testShallowEquivalent() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/ShallowEquivalent.kt");
+            }
+
+            @Test
+            @TestMetadata("ShallowSubtypeOfPCLALambdaTV.kt")
+            public void testShallowSubtypeOfPCLALambdaTV() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/ShallowSubtypeOfPCLALambdaTV.kt");
+            }
+
+            @Test
+            @TestMetadata("ShallowSupertypeOfPCLALambdaTV.kt")
+            public void testShallowSupertypeOfPCLALambdaTV() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/derivativeTypeVariables/ShallowSupertypeOfPCLALambdaTV.kt");
+            }
+          }
+
+          @Nested
+          @TestMetadata("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/miscellaneous")
+          @TestDataPath("$PROJECT_ROOT")
+          public class Miscellaneous {
+            @Test
+            public void testAllFilesPresentInMiscellaneous() {
+              KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/miscellaneous"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+            }
+
+            @Test
+            @TestMetadata("BasicErrors.kt")
+            public void testBasicErrors() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/miscellaneous/BasicErrors.kt");
+            }
+
+            @Test
+            @TestMetadata("InnerDeclarationScope.kt")
+            public void testInnerDeclarationScope() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/miscellaneous/InnerDeclarationScope.kt");
+            }
+
+            @Test
+            @TestMetadata("NestedDependentPCLACall.kt")
+            public void testNestedDependentPCLACall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/miscellaneous/NestedDependentPCLACall.kt");
+            }
+
+            @Test
+            @TestMetadata("NestedIndependentPCLACall.kt")
+            public void testNestedIndependentPCLACall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/miscellaneous/NestedIndependentPCLACall.kt");
+            }
+
+            @Test
+            @TestMetadata("PCLACandidateShape.kt")
+            public void testPCLACandidateShape() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/miscellaneous/PCLACandidateShape.kt");
+            }
+
+            @Test
+            @TestMetadata("ResolutionToMemberOverExtension.kt")
+            public void testResolutionToMemberOverExtension() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/miscellaneous/ResolutionToMemberOverExtension.kt");
+            }
+          }
+
+          @Nested
+          @TestMetadata("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation")
+          @TestDataPath("$PROJECT_ROOT")
+          public class ScopeNavigation {
+            @Test
+            public void testAllFilesPresentInScopeNavigation() {
+              KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+            }
+
+            @Nested
+            @TestMetadata("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes")
+            @TestDataPath("$PROJECT_ROOT")
+            public class CompositeTypes {
+              @Test
+              public void testAllFilesPresentInCompositeTypes() {
+                KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+              }
+
+              @Test
+              @TestMetadata("ContravariantTypeVariableCapture.kt")
+              public void testContravariantTypeVariableCapture() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes/ContravariantTypeVariableCapture.kt");
+              }
+
+              @Test
+              @TestMetadata("CovariantTypeVariableCapture.kt")
+              public void testCovariantTypeVariableCapture() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes/CovariantTypeVariableCapture.kt");
+              }
+
+              @Test
+              @TestMetadata("DefinitelyNonNullTypeVariable.kt")
+              public void testDefinitelyNonNullTypeVariable() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes/DefinitelyNonNullTypeVariable.kt");
+              }
+
+              @Test
+              @TestMetadata("FlexibleTypeVariable.kt")
+              public void testFlexibleTypeVariable() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes/FlexibleTypeVariable.kt");
+              }
+
+              @Test
+              @TestMetadata("IntersectedTypeVariable.kt")
+              public void testIntersectedTypeVariable() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes/IntersectedTypeVariable.kt");
+              }
+
+              @Test
+              @TestMetadata("NullableTypeVariable.kt")
+              public void testNullableTypeVariable() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes/NullableTypeVariable.kt");
+              }
+
+              @Test
+              @TestMetadata("TypeVariableStarCapture.kt")
+              public void testTypeVariableStarCapture() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/compositeTypes/TypeVariableStarCapture.kt");
+              }
+            }
+
+            @Nested
+            @TestMetadata("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner")
+            @TestDataPath("$PROJECT_ROOT")
+            public class ConcreteScopeOwner {
+              @Test
+              public void testAllFilesPresentInConcreteScopeOwner() {
+                KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+              }
+
+              @Test
+              @TestMetadata("AnyReceiverFunctionCall.kt")
+              public void testAnyReceiverFunctionCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/AnyReceiverFunctionCall.kt");
+              }
+
+              @Test
+              @TestMetadata("BasicCallableReference.kt")
+              public void testBasicCallableReference() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/BasicCallableReference.kt");
+              }
+
+              @Test
+              @TestMetadata("BasicPropertyAccess.kt")
+              public void testBasicPropertyAccess() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/BasicPropertyAccess.kt");
+              }
+
+              @Test
+              @TestMetadata("BasicPropertyAssignment.kt")
+              public void testBasicPropertyAssignment() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/BasicPropertyAssignment.kt");
+              }
+
+              @Test
+              @TestMetadata("ComplexCallableReference.kt")
+              public void testComplexCallableReference() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/ComplexCallableReference.kt");
+              }
+
+              @Test
+              @TestMetadata("ComplexPropertyAccess.kt")
+              public void testComplexPropertyAccess() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/ComplexPropertyAccess.kt");
+              }
+
+              @Test
+              @TestMetadata("ComplexPropertyAssignment.kt")
+              public void testComplexPropertyAssignment() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/ComplexPropertyAssignment.kt");
+              }
+
+              @Test
+              @TestMetadata("FunctionCall.kt")
+              public void testFunctionCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/FunctionCall.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericCallableReference.kt")
+              public void testGenericCallableReference() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/GenericCallableReference.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericFunctionCall.kt")
+              public void testGenericFunctionCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/GenericFunctionCall.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericInnerClassConstructorCall.kt")
+              public void testGenericInnerClassConstructorCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/GenericInnerClassConstructorCall.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericPropertyAccess.kt")
+              public void testGenericPropertyAccess() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/GenericPropertyAccess.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericPropertyAssignment.kt")
+              public void testGenericPropertyAssignment() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/GenericPropertyAssignment.kt");
+              }
+
+              @Test
+              @TestMetadata("InnerClassConstructorCall.kt")
+              public void testInnerClassConstructorCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/concreteScopeOwner/InnerClassConstructorCall.kt");
+              }
+            }
+
+            @Nested
+            @TestMetadata("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner")
+            @TestDataPath("$PROJECT_ROOT")
+            public class GenericScopeOwner {
+              @Test
+              public void testAllFilesPresentInGenericScopeOwner() {
+                KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+              }
+
+              @Test
+              @TestMetadata("AnyReceiverFunctionCall.kt")
+              public void testAnyReceiverFunctionCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/AnyReceiverFunctionCall.kt");
+              }
+
+              @Test
+              @TestMetadata("BasicCallableReference.kt")
+              public void testBasicCallableReference() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/BasicCallableReference.kt");
+              }
+
+              @Test
+              @TestMetadata("BasicPropertyAccess.kt")
+              public void testBasicPropertyAccess() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/BasicPropertyAccess.kt");
+              }
+
+              @Test
+              @TestMetadata("BasicPropertyAssignment.kt")
+              public void testBasicPropertyAssignment() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/BasicPropertyAssignment.kt");
+              }
+
+              @Test
+              @TestMetadata("ComplexCallableReference.kt")
+              public void testComplexCallableReference() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/ComplexCallableReference.kt");
+              }
+
+              @Test
+              @TestMetadata("ComplexPropertyAccess.kt")
+              public void testComplexPropertyAccess() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/ComplexPropertyAccess.kt");
+              }
+
+              @Test
+              @TestMetadata("ComplexPropertyAssignment.kt")
+              public void testComplexPropertyAssignment() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/ComplexPropertyAssignment.kt");
+              }
+
+              @Test
+              @TestMetadata("FunctionCall.kt")
+              public void testFunctionCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/FunctionCall.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericCallableReference.kt")
+              public void testGenericCallableReference() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/GenericCallableReference.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericFunctionCall.kt")
+              public void testGenericFunctionCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/GenericFunctionCall.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericInnerClassConstructorCall.kt")
+              public void testGenericInnerClassConstructorCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/GenericInnerClassConstructorCall.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericPropertyAccess.kt")
+              public void testGenericPropertyAccess() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/GenericPropertyAccess.kt");
+              }
+
+              @Test
+              @TestMetadata("GenericPropertyAssignment.kt")
+              public void testGenericPropertyAssignment() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/GenericPropertyAssignment.kt");
+              }
+
+              @Test
+              @TestMetadata("InnerClassConstructorCall.kt")
+              public void testInnerClassConstructorCall() {
+                runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/scopeNavigation/genericScopeOwner/InnerClassConstructorCall.kt");
+              }
+            }
+          }
+
+          @Nested
+          @TestMetadata("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms")
+          @TestDataPath("$PROJECT_ROOT")
+          public class SyntaxForms {
+            @Test
+            public void testAllFilesPresentInSyntaxForms() {
+              KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
+            }
+
+            @Test
+            @TestMetadata("CompareToOperatorCall.kt")
+            public void testCompareToOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/CompareToOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("ContainsOperatorCall.kt")
+            public void testContainsOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/ContainsOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("DestructuringDeclaration.kt")
+            public void testDestructuringDeclaration() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/DestructuringDeclaration.kt");
+            }
+
+            @Test
+            @TestMetadata("ForLoopContainerExpression.kt")
+            public void testForLoopContainerExpression() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/ForLoopContainerExpression.kt");
+            }
+
+            @Test
+            @TestMetadata("IndexingAssignment.kt")
+            public void testIndexingAssignment() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/IndexingAssignment.kt");
+            }
+
+            @Test
+            @TestMetadata("IndexingOperatorCall.kt")
+            public void testIndexingOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/IndexingOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("IndexingPlusAssignOperatorCall.kt")
+            public void testIndexingPlusAssignOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/IndexingPlusAssignOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("IndexingPlusOperatorAssignment.kt")
+            public void testIndexingPlusOperatorAssignment() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/IndexingPlusOperatorAssignment.kt");
+            }
+
+            @Test
+            @TestMetadata("InfixFunctionCall.kt")
+            public void testInfixFunctionCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/InfixFunctionCall.kt");
+            }
+
+            @Test
+            @TestMetadata("InvokeOperatorCall.kt")
+            public void testInvokeOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/InvokeOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("LogicalNotOperatorCall.kt")
+            public void testLogicalNotOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/LogicalNotOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("PlusAssignOperatorCall.kt")
+            public void testPlusAssignOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/PlusAssignOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("PlusOperatorAssignment.kt")
+            public void testPlusOperatorAssignment() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/PlusOperatorAssignment.kt");
+            }
+
+            @Test
+            @TestMetadata("PlusOperatorCall.kt")
+            public void testPlusOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/PlusOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("PostfixIncrementOperatorCall.kt")
+            public void testPostfixIncrementOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/PostfixIncrementOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("PrefixIncrementOperatorCall.kt")
+            public void testPrefixIncrementOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/PrefixIncrementOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("RangeOperatorCall.kt")
+            public void testRangeOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/RangeOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("ReferenceEqualityExpression.kt")
+            public void testReferenceEqualityExpression() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/ReferenceEqualityExpression.kt");
+            }
+
+            @Test
+            @TestMetadata("StringInterpolationExpression.kt")
+            public void testStringInterpolationExpression() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/StringInterpolationExpression.kt");
+            }
+
+            @Test
+            @TestMetadata("TypeCastExpression.kt")
+            public void testTypeCastExpression() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/TypeCastExpression.kt");
+            }
+
+            @Test
+            @TestMetadata("TypeCheckExpression.kt")
+            public void testTypeCheckExpression() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/TypeCheckExpression.kt");
+            }
+
+            @Test
+            @TestMetadata("UnarySignOperatorCall.kt")
+            public void testUnarySignOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/UnarySignOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("ValueEqualityOperatorCall.kt")
+            public void testValueEqualityOperatorCall() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/ValueEqualityOperatorCall.kt");
+            }
+
+            @Test
+            @TestMetadata("WhenExpression.kt")
+            public void testWhenExpression() {
+              runTest("compiler/testData/diagnostics/tests/inference/pcla/fixationOnDemand/syntaxForms/WhenExpression.kt");
+            }
           }
         }
 
@@ -26654,6 +27220,18 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
       }
 
       @Test
+      @TestMetadata("actualDeprecated.kt")
+      public void testActualDeprecated() {
+        runTest("compiler/testData/diagnostics/tests/multiplatform/actualDeprecated.kt");
+      }
+
+      @Test
+      @TestMetadata("actualExternalInJs.kt")
+      public void testActualExternalInJs() {
+        runTest("compiler/testData/diagnostics/tests/multiplatform/actualExternalInJs.kt");
+      }
+
+      @Test
       @TestMetadata("actualMissingConstructor.kt")
       public void testActualMissingConstructor() {
         runTest("compiler/testData/diagnostics/tests/multiplatform/actualMissingConstructor.kt");
@@ -26779,6 +27357,12 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
       }
 
       @Test
+      @TestMetadata("collections.kt")
+      public void testCollections() {
+        runTest("compiler/testData/diagnostics/tests/multiplatform/collections.kt");
+      }
+
+      @Test
       @TestMetadata("delegationToExpectInterfaceMixedWithInheritance.kt")
       public void testDelegationToExpectInterfaceMixedWithInheritance() {
         runTest("compiler/testData/diagnostics/tests/multiplatform/delegationToExpectInterfaceMixedWithInheritance.kt");
@@ -26818,6 +27402,12 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
       @TestMetadata("dontDeprioritizeExpectFunIfShapeIsMoreSpecific.kt")
       public void testDontDeprioritizeExpectFunIfShapeIsMoreSpecific() {
         runTest("compiler/testData/diagnostics/tests/multiplatform/dontDeprioritizeExpectFunIfShapeIsMoreSpecific.kt");
+      }
+
+      @Test
+      @TestMetadata("duplicateSupertype.kt")
+      public void testDuplicateSupertype() {
+        runTest("compiler/testData/diagnostics/tests/multiplatform/duplicateSupertype.kt");
       }
 
       @Test
@@ -26974,6 +27564,12 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
       @TestMetadata("JsExternalTypeExtendsActualExternalType.kt")
       public void testJsExternalTypeExtendsActualExternalType() {
         runTest("compiler/testData/diagnostics/tests/multiplatform/JsExternalTypeExtendsActualExternalType.kt");
+      }
+
+      @Test
+      @TestMetadata("jvmOverloads.kt")
+      public void testJvmOverloads() {
+        runTest("compiler/testData/diagnostics/tests/multiplatform/jvmOverloads.kt");
       }
 
       @Test
@@ -49142,46 +49738,6 @@ public class LLFirPreresolvedReversedDiagnosticCompilerFE10TestDataTestGenerated
       @TestMetadata("isInitialized.kt")
       public void testIsInitialized() {
         runTest("compiler/testData/diagnostics/testsWithStdLib/lateinit/isInitialized.kt");
-      }
-    }
-
-    @Nested
-    @TestMetadata("compiler/testData/diagnostics/testsWithStdLib/multiplatform")
-    @TestDataPath("$PROJECT_ROOT")
-    public class Multiplatform {
-      @Test
-      @TestMetadata("actualDeprecated.kt")
-      public void testActualDeprecated() {
-        runTest("compiler/testData/diagnostics/testsWithStdLib/multiplatform/actualDeprecated.kt");
-      }
-
-      @Test
-      @TestMetadata("actualExternalInJs.kt")
-      public void testActualExternalInJs() {
-        runTest("compiler/testData/diagnostics/testsWithStdLib/multiplatform/actualExternalInJs.kt");
-      }
-
-      @Test
-      public void testAllFilesPresentInMultiplatform() {
-        KtTestUtil.assertAllTestsPresentByMetadataWithExcluded(this.getClass(), new File("compiler/testData/diagnostics/testsWithStdLib/multiplatform"), Pattern.compile("^(.+)\\.(kt|kts)$"), Pattern.compile("^(.+)\\.(reversed|fir|ll|latestLV)\\.kts?$"), true);
-      }
-
-      @Test
-      @TestMetadata("collections.kt")
-      public void testCollections() {
-        runTest("compiler/testData/diagnostics/testsWithStdLib/multiplatform/collections.kt");
-      }
-
-      @Test
-      @TestMetadata("duplicateSupertype.kt")
-      public void testDuplicateSupertype() {
-        runTest("compiler/testData/diagnostics/testsWithStdLib/multiplatform/duplicateSupertype.kt");
-      }
-
-      @Test
-      @TestMetadata("jvmOverloads.kt")
-      public void testJvmOverloads() {
-        runTest("compiler/testData/diagnostics/testsWithStdLib/multiplatform/jvmOverloads.kt");
       }
     }
 

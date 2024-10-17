@@ -112,6 +112,7 @@ dependencies {
     commonApi(platform(project(":kotlin-gradle-plugins-bom")))
     commonApi(project(":kotlin-gradle-plugin-api"))
     commonApi(project(":kotlin-gradle-plugin-model"))
+    commonApi(project(":libraries:tools:gradle:fus-statistics-gradle-plugin"))
 
     // Following two dependencies is a workaround for IDEA import to pick-up them correctly
     commonCompileOnly(project(":kotlin-gradle-plugin-api")) {
@@ -447,10 +448,13 @@ if (!kotlinBuildProperties.isInJpsBuildIdeaSync) {
     functionalTestCompilation.associateWith(kotlin.target.compilations.getByName(gradlePluginVariantForFunctionalTests.sourceSetName))
     functionalTestCompilation.associateWith(kotlin.target.compilations.getByName("common"))
 
-    tasks.register<Test>("functionalTest")
+    tasks.register<Test>("functionalTest") {
+        systemProperty("kotlinVersion", rootProject.extra["kotlinVersion"] as String)
+    }
 
     tasks.register<Test>("functionalUnitTest") {
         include("**/org/jetbrains/kotlin/gradle/unitTests/**")
+        systemProperty("kotlinVersion", rootProject.extra["kotlinVersion"] as String)
     }
 
     tasks.register<Test>("functionalRegressionTest") {

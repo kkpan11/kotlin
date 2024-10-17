@@ -14,12 +14,12 @@ class Klass<T> {
 
 fun <A> fooA(arg: A?): A {
     <!DEBUG_INFO_EXPRESSION_TYPE("A?")!>fooB(arg)<!>
-    <!CANNOT_INFER_PARAMETER_TYPE!>fooC<!>(<!ARGUMENT_TYPE_MISMATCH("C & Any; A?")!>arg<!>)
+    <!CANNOT_INFER_PARAMETER_TYPE!>fooC<!>(<!ARGUMENT_TYPE_MISMATCH("C (of fun <C> fooC) & Any; A? (of fun <A> fooA)")!>arg<!>)
     return null!!
 }
 fun <B> fooB(arg: B): B {
     <!DEBUG_INFO_EXPRESSION_TYPE("B!!")!>fooA(arg)<!>
-    <!CANNOT_INFER_PARAMETER_TYPE!>fooC<!>(<!ARGUMENT_TYPE_MISMATCH("C & Any; B")!>arg<!>)
+    <!CANNOT_INFER_PARAMETER_TYPE!>fooC<!>(<!ARGUMENT_TYPE_MISMATCH("C (of fun <C> fooC) & Any; B (of fun <B> fooB)")!>arg<!>)
     return null!!
 }
 fun <C> fooC(arg: C & Any): C {
@@ -33,12 +33,12 @@ fun <C> fooC(arg: C & Any): C {
 
 class RationaleKlass<T> {
     fun fooD(arg: T?) {
-        fooE(<!ARGUMENT_TYPE_MISMATCH("T; T?")!>arg<!>)
-        fooF(<!ARGUMENT_TYPE_MISMATCH("T & Any; T?")!>arg<!>)
+        fooE(<!ARGUMENT_TYPE_MISMATCH("T (of class RationaleKlass<T>); T? (of class RationaleKlass<T>)")!>arg<!>)
+        fooF(<!ARGUMENT_TYPE_MISMATCH("T (of class RationaleKlass<T>) & Any; T? (of class RationaleKlass<T>)")!>arg<!>)
     }
     fun fooE(arg: T) {
         fooD(arg)
-        fooF(<!ARGUMENT_TYPE_MISMATCH("T & Any; T")!>arg<!>)
+        fooF(<!ARGUMENT_TYPE_MISMATCH("T (of class RationaleKlass<T>) & Any; T (of class RationaleKlass<T>)")!>arg<!>)
     }
     fun fooF(arg: T & Any) {
         fooD(arg)

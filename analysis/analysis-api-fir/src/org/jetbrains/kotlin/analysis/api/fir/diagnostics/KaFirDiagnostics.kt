@@ -44,6 +44,7 @@ import org.jetbrains.kotlin.psi.KtBackingField
 import org.jetbrains.kotlin.psi.KtBinaryExpression
 import org.jetbrains.kotlin.psi.KtBinaryExpressionWithTypeRHS
 import org.jetbrains.kotlin.psi.KtCallExpression
+import org.jetbrains.kotlin.psi.KtCallableDeclaration
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtClassLikeDeclaration
 import org.jetbrains.kotlin.psi.KtClassLiteralExpression
@@ -604,6 +605,11 @@ sealed interface KaFirDiagnostic<PSI : PsiElement> : KaDiagnosticWithPsi<PSI> {
 
     interface CyclicInheritanceHierarchy : KaFirDiagnostic<PsiElement> {
         override val diagnosticClass get() = CyclicInheritanceHierarchy::class
+    }
+
+    interface ExpandedTypeCannotBeInherited : KaFirDiagnostic<KtTypeReference> {
+        override val diagnosticClass get() = ExpandedTypeCannotBeInherited::class
+        val type: KaType
     }
 
     interface ProjectionInImmediateArgumentToSupertype : KaFirDiagnostic<KtModifierListOwner> {
@@ -3880,8 +3886,25 @@ sealed interface KaFirDiagnostic<PSI : PsiElement> : KaDiagnosticWithPsi<PSI> {
         val regular: KaFunctionSymbol
     }
 
+    interface ImplementationByDelegationWithDifferentGenericSignatureError : KaFirDiagnostic<KtTypeReference> {
+        override val diagnosticClass get() = ImplementationByDelegationWithDifferentGenericSignatureError::class
+        val base: KaFunctionSymbol
+        val override: KaFunctionSymbol
+    }
+
+    interface ImplementationByDelegationWithDifferentGenericSignatureWarning : KaFirDiagnostic<KtTypeReference> {
+        override val diagnosticClass get() = ImplementationByDelegationWithDifferentGenericSignatureWarning::class
+        val base: KaFunctionSymbol
+        val override: KaFunctionSymbol
+    }
+
     interface NotYetSupportedLocalInlineFunction : KaFirDiagnostic<KtDeclaration> {
         override val diagnosticClass get() = NotYetSupportedLocalInlineFunction::class
+    }
+
+    interface PropertyHidesJavaField : KaFirDiagnostic<KtCallableDeclaration> {
+        override val diagnosticClass get() = PropertyHidesJavaField::class
+        val hidden: KaVariableSymbol
     }
 
     interface JavaTypeMismatch : KaFirDiagnostic<KtExpression> {

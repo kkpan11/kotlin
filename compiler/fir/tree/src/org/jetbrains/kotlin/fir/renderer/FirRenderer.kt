@@ -46,11 +46,12 @@ class FirRenderer(
     override val resolvePhaseRenderer: FirResolvePhaseRenderer? = null,
     override val typeRenderer: ConeTypeRenderer = ConeTypeRendererForDebugging(),
     override val referencedSymbolRenderer: FirSymbolRenderer = FirSymbolRenderer(),
-    override val valueParameterRenderer: FirValueParameterRenderer? = FirValueParameterRenderer(),
+    override val callableSignatureRenderer: FirCallableSignatureRenderer? = FirCallableSignatureRenderer(),
     override val errorExpressionRenderer: FirErrorExpressionRenderer? = FirErrorExpressionOnlyErrorRenderer(),
     override val resolvedNamedReferenceRenderer: FirResolvedNamedReferenceRenderer = FirResolvedNamedReferenceRendererWithLabel(),
     override val resolvedQualifierRenderer: FirResolvedQualifierRenderer = FirResolvedQualifierRendererWithLabel(),
     override val getClassCallRenderer: FirGetClassCallRenderer = FirGetClassCallRendererForDebugging(),
+    override val supertypeRenderer: FirSupertypeRenderer? = FirSupertypeRenderer(),
     private val lineBreakAfterContextReceivers: Boolean = true,
     private val renderFieldAnnotationSeparately: Boolean = true,
     private val renderVarargTypes: Boolean = false,
@@ -83,7 +84,7 @@ class FirRenderer(
             propertyAccessorRenderer = null,
             callArgumentsRenderer = FirCallNoArgumentsRenderer(),
             modifierRenderer = FirPartialModifierRenderer(),
-            valueParameterRenderer = FirValueParameterRendererForReadability(),
+            callableSignatureRenderer = FirCallableSignatureRendererForReadability(),
             declarationRenderer = FirDeclarationRenderer("local "),
         )
     }
@@ -103,11 +104,12 @@ class FirRenderer(
         typeRenderer.builder = builder
         typeRenderer.idRenderer = idRenderer
         referencedSymbolRenderer.components = this
-        valueParameterRenderer?.components = this
+        callableSignatureRenderer?.components = this
         errorExpressionRenderer?.components = this
         resolvedNamedReferenceRenderer.components = this
         resolvedQualifierRenderer.components = this
         getClassCallRenderer.components = this
+        supertypeRenderer?.components = this
     }
 
     fun renderElementAsString(element: FirElement, trim: Boolean = false): String {
@@ -132,13 +134,6 @@ class FirRenderer(
 
     fun renderAnnotations(annotationContainer: FirAnnotationContainer) {
         annotationRenderer?.render(annotationContainer)
-    }
-
-    fun renderSupertypes(regularClass: FirRegularClass) {
-        if (regularClass.superTypeRefs.isNotEmpty()) {
-            print(" : ")
-            renderSeparated(regularClass.superTypeRefs, visitor)
-        }
     }
 
     private fun Variance.renderVariance() {
@@ -292,10 +287,10 @@ class FirRenderer(
             }
 
             if (callableDeclaration is FirFunction) {
-                valueParameterRenderer?.renderParameters(callableDeclaration.valueParameters)
+                callableSignatureRenderer?.renderParameters(callableDeclaration.valueParameters)
             }
-            print(": ")
-            callableDeclaration.returnTypeRef.accept(this)
+            callableSignatureRenderer?.renderReturnTypePrefix()
+            callableSignatureRenderer?.renderCallableType(callableDeclaration)
             contractRenderer?.render(callableDeclaration)
         }
 
@@ -346,7 +341,7 @@ class FirRenderer(
             renderContexts(regularClass.contextReceivers)
             annotationRenderer?.render(regularClass)
             visitMemberDeclaration(regularClass)
-            renderSupertypes(regularClass)
+            supertypeRenderer?.renderSupertypes(regularClass)
             classMemberRenderer?.render(regularClass)
         }
 
@@ -415,7 +410,7 @@ class FirRenderer(
             declarationRenderer?.render(constructor)
 
             constructor.typeParameters.renderTypeParameters()
-            valueParameterRenderer?.renderParameters(constructor.valueParameters)
+            callableSignatureRenderer?.renderParameters(constructor.valueParameters)
             print(": ")
             constructor.returnTypeRef.accept(this)
             val body = constructor.body
@@ -434,7 +429,7 @@ class FirRenderer(
             annotationRenderer?.render(propertyAccessor)
             modifierRenderer?.renderModifiers(propertyAccessor)
             declarationRenderer?.render(propertyAccessor)
-            valueParameterRenderer?.renderParameters(propertyAccessor.valueParameters)
+            callableSignatureRenderer?.renderParameters(propertyAccessor.valueParameters)
             print(": ")
             propertyAccessor.returnTypeRef.accept(this)
             contractRenderer?.render(propertyAccessor)
@@ -463,7 +458,7 @@ class FirRenderer(
             ) {
                 print("(<no-parameters>)")
             }
-            valueParameterRenderer?.renderParameters(anonymousFunction.valueParameters)
+            callableSignatureRenderer?.renderParameters(anonymousFunction.valueParameters)
             print(": ")
             anonymousFunction.returnTypeRef.accept(this)
             print(" <inline=${anonymousFunction.inlineStatus}")
@@ -475,7 +470,7 @@ class FirRenderer(
         }
 
         override fun visitFunction(function: FirFunction) {
-            valueParameterRenderer?.renderParameters(function.valueParameters)
+            callableSignatureRenderer?.renderParameters(function.valueParameters)
             declarationRenderer?.render(function)
             bodyRenderer?.render(function)
         }
@@ -500,8 +495,7 @@ class FirRenderer(
         override fun visitTypeAlias(typeAlias: FirTypeAlias) {
             annotationRenderer?.render(typeAlias)
             visitMemberDeclaration(typeAlias)
-            print(" = ")
-            typeAlias.expandedTypeRef.accept(this)
+            supertypeRenderer?.renderTypeAliasExpansion(typeAlias)
             printer.newLine()
         }
 
@@ -546,7 +540,7 @@ class FirRenderer(
         }
 
         override fun visitValueParameter(valueParameter: FirValueParameter) {
-            valueParameterRenderer?.renderParameter(valueParameter)
+            callableSignatureRenderer?.renderParameter(valueParameter)
         }
 
         override fun visitImport(import: FirImport) {

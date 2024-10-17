@@ -1426,6 +1426,11 @@ public final class org/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingD
 	public final fun invoke (Ljava/lang/String;)Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnostic;
 }
 
+public final class org/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$NewNativeVersionDiagnostic : org/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnosticFactory {
+	public static final field INSTANCE Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$NewNativeVersionDiagnostic;
+	public final fun invoke (Lorg/jetbrains/kotlin/tooling/core/KotlinToolingVersion;Lorg/jetbrains/kotlin/tooling/core/KotlinToolingVersion;)Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnostic;
+}
+
 public final class org/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$NoComposeCompilerPluginAppliedWarning : org/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnosticFactory {
 	public static final field INSTANCE Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$NoComposeCompilerPluginAppliedWarning;
 	public final fun invoke ()Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnostic;
@@ -1434,6 +1439,11 @@ public final class org/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingD
 public final class org/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$NoKotlinTargetsDeclared : org/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnosticFactory {
 	public static final field INSTANCE Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$NoKotlinTargetsDeclared;
 	public final fun invoke (Ljava/lang/String;Ljava/lang/String;)Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnostic;
+}
+
+public final class org/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$OldNativeVersionDiagnostic : org/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnosticFactory {
+	public static final field INSTANCE Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$OldNativeVersionDiagnostic;
+	public final fun invoke (Lorg/jetbrains/kotlin/tooling/core/KotlinToolingVersion;Lorg/jetbrains/kotlin/tooling/core/KotlinToolingVersion;)Lorg/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnostic;
 }
 
 public final class org/jetbrains/kotlin/gradle/plugin/diagnostics/KotlinToolingDiagnostics$PlatformSourceSetConventionUsedWithCustomTargetName : org/jetbrains/kotlin/gradle/plugin/diagnostics/ToolingDiagnosticFactory {
@@ -2629,10 +2639,11 @@ public abstract class org/jetbrains/kotlin/gradle/plugin/statistics/BuildFusServ
 }
 
 public final class org/jetbrains/kotlin/gradle/plugin/statistics/BuildFusService$Companion {
-	public final fun registerIfAbsent (Lorg/gradle/api/Project;Ljava/lang/String;)Lorg/gradle/api/provider/Provider;
+	public final fun registerIfAbsent (Lorg/gradle/api/Project;Ljava/lang/String;Lorg/gradle/api/provider/Provider;)Lorg/gradle/api/provider/Provider;
 }
 
 public abstract interface class org/jetbrains/kotlin/gradle/plugin/statistics/BuildFusService$Parameters : org/gradle/api/services/BuildServiceParameters {
+	public abstract fun getBuildId ()Lorg/gradle/api/provider/Property;
 	public abstract fun getBuildStatisticsConfiguration ()Lorg/gradle/api/provider/Property;
 	public abstract fun getConfigurationMetrics ()Lorg/gradle/api/provider/ListProperty;
 	public abstract fun getGeneralConfigurationMetrics ()Lorg/gradle/api/provider/Property;
@@ -3350,7 +3361,6 @@ public class org/jetbrains/kotlin/gradle/targets/js/d8/D8Plugin : org/gradle/api
 }
 
 public final class org/jetbrains/kotlin/gradle/targets/js/d8/D8Plugin$Companion {
-	public final fun apply (Lorg/gradle/api/Project;)Lorg/jetbrains/kotlin/gradle/targets/js/d8/D8RootExtension;
 }
 
 public class org/jetbrains/kotlin/gradle/targets/js/d8/D8RootExtension : org/jetbrains/kotlin/gradle/targets/js/AbstractSettings {
@@ -6462,6 +6472,7 @@ public abstract class org/jetbrains/kotlin/gradle/tasks/AbstractKotlinCompile : 
 	public final fun execute (Lorg/gradle/work/InputChanges;)V
 	public final fun getAbiSnapshotFile ()Lorg/gradle/api/provider/Provider;
 	public final fun getAbiSnapshotRelativePath ()Lorg/gradle/api/provider/Property;
+	protected final fun getChangedFiles (Lorg/gradle/work/InputChanges;Ljava/util/List;)Lorg/jetbrains/kotlin/buildtools/api/SourcesChanges;
 	protected final fun getChangedFiles (Lorg/gradle/work/InputChanges;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lorg/jetbrains/kotlin/buildtools/api/SourcesChanges;
 	public static synthetic fun getChangedFiles$default (Lorg/jetbrains/kotlin/gradle/tasks/AbstractKotlinCompile;Lorg/gradle/work/InputChanges;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/jetbrains/kotlin/buildtools/api/SourcesChanges;
 	public abstract fun getCompilerOptions ()Lorg/jetbrains/kotlin/gradle/dsl/KotlinCommonCompilerOptions;
